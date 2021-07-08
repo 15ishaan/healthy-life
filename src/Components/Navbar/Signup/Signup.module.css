@@ -1,4 +1,4 @@
-/* @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
 *:focus {
   outline: none;
 }
@@ -13,7 +13,7 @@ body {
   font-weight: 300;
 }
 
-#login-box {
+.loginBox {
   position: relative;
   margin: 5% auto;
   width: 600px;
@@ -63,7 +63,7 @@ input[type="password"]:focus {
 }
 
 input[type="submit"] {
-  margin-top: 28px;
+  margin-top: 5px;
   width: 120px;
   height: 32px;
   background: #16a085;
@@ -111,7 +111,7 @@ input[type="submit"]:active {
   padding: 40px;
   width: 300px;
   height: 400px;
-  background: url('https://goo.gl/YbktSj');
+  /* background: url('https://goo.gl/YbktSj');  */
   background-size: cover;
   background-position: center;
   border-radius: 0 2px 2px 0;
@@ -125,7 +125,7 @@ input[type="submit"]:active {
   text-align: center;
 }
 
-button.social-signin {
+button.socialSignin {
   margin-bottom: 20px;
   width: 220px;
   height: 36px;
@@ -138,25 +138,65 @@ button.social-signin {
   cursor: pointer;
 }
 
-button.social-signin:hover,
-button.social-signin:focus {
+button.socialSignin:hover,
+button.socialSignin:focus {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   transition: 0.2s ease;
 }
 
-button.social-signin:active {
+button.socialSignin:active {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
   transition: 0.2s ease;
 }
 
-button.social-signin.facebook {
+button.socialSigninFacebook {
   background: #32508E;
 }
 
-button.social-signin.twitter {
+button.socialSigninTwitter {
   background: #55ACEE;
 }
 
-button.social-signin.google {
+button.socialSigninGoogle {
   background: #DD4B39;
+}
+
+/* .select_arrow {
+  position: absolute;
+  top: calc(50% - 4px);
+  right: 15px;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  border-width: 8px 5px 0 5px;
+  border-style: solid;
+  border-color: #7b7b7b transparent transparent transparent;
 } */
+
+/* .select_option select {
+  border-top-color: black;
+} */
+
+.input_field {
+  /* position: relative; */
+  position: relative;
+  margin-bottom: 30px;
+  left: 0;
+  top: 49%;
+  color: #333;
+  height: 30px;
+  border-right: 1px solid grey;
+  text-align: center;
+  width: 200px;
+  padding-top: 3px;
+}
+
+.street_name{
+  position: absolute;
+  top:48%
+}
+
+.upload_image{
+  position: absolute;
+  top: 63%;
+}

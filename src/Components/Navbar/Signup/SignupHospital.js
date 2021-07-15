@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {NavLink, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import classes from './Signup.module.css';
 import axios from '../../../Axios-url';
 
@@ -63,7 +63,7 @@ const SignupHospital = () => {
                 <input type="password" name="confirm_password" placeholder="Confirm Your Password" value = {user.confirm_password} onChange = {handleInputs}/>
                 <input type="submit" name="signup_submit" value="Sign me up" onClick = {submitData}/>
                 {/* <div className={classes.select_arrow}></div> */}
-                <p>Already Registered? <NavLink to = "/login">Sign-in</NavLink></p>
+                <p>Already Registered? <a href = "/login">Sign-in</a></p>
             </div>
     
             <div className={classes.right}>

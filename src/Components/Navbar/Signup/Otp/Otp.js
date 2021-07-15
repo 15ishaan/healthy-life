@@ -32,7 +32,6 @@ const Otp = () => {
     }
 
     const submitOtp = () => {
-        console.log(otp);
         if(otp.otp < 1000) window.alert("Enter 4 digit number");
         axios.post('/validateotp/' + userId + '/', otp)
              .then(response => {
@@ -40,6 +39,14 @@ const Otp = () => {
                     if(response.status === 200){
                         history.push("/login");
                     }
+                })
+             .catch(error => console.error());
+    }
+
+    const resendOtp = () => {
+        axios.get('/quickstart/resendotp/' + userId + '/')
+            .then(response => {
+                    console.log(response);
                 })
              .catch(error => console.error());
     }
@@ -53,7 +60,7 @@ const Otp = () => {
                 <input type="submit" name="otp_submit" value="Verify" onClick = {submitOtp}/>
                 <br/><br/>
                 {/* <p><small>Resend OTP in <span id="countdowntimer">120 </span> Seconds</small></p>  */}
-                <p><strong>Didn't get the code? </strong><a href="/signup/otp">Resend</a> </p>
+                <p><strong>Didn't get the code? </strong><span style = {{cursor: 'pointer'}} onClick = {resendOtp}>Resend</span> </p>
             </div>
         </div>
     );

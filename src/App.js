@@ -9,16 +9,39 @@ import SignupUser from "./Components/Navbar/Signup/SignupUser";
 import Login from "./Components/Navbar/Login";
 import SignupHospital from "./Components/Navbar/Signup/SignupHospital";
 import Otp from "./Components/Navbar/Signup/Otp/Otp";
+import HospitalDetails from "./Components/HospitalDetails/HospitalDetails"
+import DoctorProfile from "./Components/HospitalDetails/DoctorProfile";
+import axios from "./Axios-url"
 
 class App extends Component{
+
+  state = {};
+
+  componentDidMount = () => {
+    const username = localStorage.getItem("username");
+    axios.get('/quickstart/profile_user/' + username + '/')
+        .then(response => {
+            console.log(response);
+            this.setUser(response.data);
+        })
+        .catch(error => {
+            console.log(error);
+        })
+}
+
+  setUser = (user) => {
+    this.setState({
+      user: user
+    })
+  }
 
   render () {
 
     return (
       <div>
-        <Navbar />
-        <Route exact path = "/">
-          <Home />
+        <Navbar user = {this.state.user} setUser = {this.setUser}/>
+        <Route exact path = "/hospitals">
+          <Home user = {this.state.user}/>
         </Route>
         <Route path = "/about">
           <About />
@@ -27,7 +50,7 @@ class App extends Component{
           <Contact />
         </Route>
         <Route path = "/login">
-          <Login />
+          <Login setUser = {this.setUser}/>
         </Route>
         <Route path = "/signupUser">
           <SignupUser />
@@ -38,9 +61,14 @@ class App extends Component{
         <Route path = "/signup/otp">
           <Otp />
         </Route>
+        <Route path = "/hospitals/hospitalDetails">
+          <HospitalDetails />
+        </Route>
+        <Route path = "/hospitalDetails/doctor">
+          <DoctorProfile />
+        </Route>
       </div>
     );
-
   }
 }
 

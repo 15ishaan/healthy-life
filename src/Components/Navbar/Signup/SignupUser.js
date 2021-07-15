@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 // import SignupPic from '../../Assets/images/Signup-pic.png'
-import {NavLink, withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import classes from './Signup.module.css'
 import axios from '../../../Axios-url';
 
@@ -55,7 +55,7 @@ class SignupUser extends Component{
                     <input type="password" name="password" placeholder="Your Password" value = {this.state.password} onChange = {this.handlePassword}/>
                     <input type="password" name="confirm_password" placeholder="Confirm Your Password" value = {this.state.confirm_password} onChange = {this.handleConfirmPassword}/>
                     <input type="submit" name="signup_submit" value="Sign me up" onClick = {this.submitData} />
-                    <p>Already Registered? <NavLink to = "/login">Sign-in</NavLink></p>
+                    <p>Already Registered? <a href = "/login">Sign-in</a></p>
                 </div>
         
                 <div className={classes.right}>

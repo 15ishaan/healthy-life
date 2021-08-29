@@ -16,7 +16,7 @@ class Navbar extends Component {
         buttons = (
           <ul className="navbar-nav ms-auto">
             <li className="nav-item active">
-              <NavLink className="nav-link" to="/">Home</NavLink>
+              <NavLink className="nav-link" to="/hospitals">Home</NavLink>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/about">About</NavLink>
@@ -42,6 +42,7 @@ class Navbar extends Component {
               <a className="dropdown-item" href="/signupHospital">As Hospital</a>
             </div>
           </li>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <li className="nav-item">
             <NavLink className="nav-link" to="/login">Login</NavLink>
           </li>

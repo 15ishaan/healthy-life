@@ -20,6 +20,7 @@ const SignupHospital = () => {
 
     const handleFileUpload = (event) => {
        setUser({...user, image: event.target.files[0]});
+       console.log(user.image);
     }
 
     const submitData = () => {

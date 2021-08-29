@@ -1,19 +1,17 @@
-import React, {Component} from 'react';
-// import Backdrop from '../../Assets/images/backdrop.jpg'
-import classes from './HospitalDetails.module.css'
-import HospitalDoctorsCard from './HospitalDoctorsCard';
+import React from 'react';
+import { Component } from 'react';
+import classes from './HospitalProfile.module.css';
+import HospitalDoctors from './HospitalDoctors';
+import {withRouter} from 'react-router-dom';
 import axios from '../../Axios-url'
 
-class HospitalDetails extends Component{
+class HospitalProfile extends Component {
 
     state = {};
 
     componentDidMount = () => {
-        let curUrl = window.location.href;
-        curUrl = curUrl.split("/").pop();
-        const hospitalId = curUrl.split("/").pop();
-
-        axios.get("/hospital_doctors/" + hospitalId + "/")
+        const username = localStorage.getItem("username");
+        axios.get("/quickstart/hospital_doctor/" + username + "/")
             .then(response => {
                 console.log(response);
                 if(response.status === 200) {
@@ -24,7 +22,7 @@ class HospitalDetails extends Component{
                 console.log(error);
             })
 
-        axios.get("/quickstart/hospital_name/" + hospitalId + "/")
+        axios.get("/quickstart/profile_hospital/" + username + "/")
             .then(response => {
                 console.log(response);
                 if(response.status === 200) {
@@ -48,14 +46,25 @@ class HospitalDetails extends Component{
         })
     }
 
-    render () {
+    editHospitalProfile = () => {
+        this.props.history.push("/editHospitalProfile");
+    }
+
+    addDoctor = () => {
+        this.props.history.push("/addDoctor");
+    }
+
+    render() {
+
         let hospitalDetails = null;
         let hospitalDoctors = null;
+
         if(this.state.hospitalDetails) {
             hospitalDetails = (
                 <div className = {classes.content}>
-                <img className = {classes.image} src = {"http://a8a6-112-196-163-58.ngrok.io" + this.state.hospitalDetails.image} alt = "xyz"></img>
+                <img className = {classes.image} src = {this.state.hospitalDetails.image} alt = "xyz"></img>
                 <br/><br/>
+                <p className="btn btn-primary" style = {{color: 'white', fontWeight: 'normal'}} onClick = {this.editHospitalProfile}>Edit Profile</p>
                 <h1><strong>{this.state.hospitalDetails.hospital_name}</strong></h1>
                 <h5>Address: {this.state.hospitalDetails.street_name}</h5>
                 <h5>For more information, <br/>Contact: {this.state.hospitalDetails.username}</h5>
@@ -66,7 +75,7 @@ class HospitalDetails extends Component{
             hospitalDoctors = (
                     <div className = {classes.container}>
                         {this.state.hospitalDoctors.map((doctor) => (
-                        <HospitalDoctorsCard key = {doctor.id} doctorData = {doctor}/> ))};
+                        <HospitalDoctors key = {doctor.id} doctorData = {doctor}/> ))}
                     </div>
                 );
         }
@@ -74,10 +83,11 @@ class HospitalDetails extends Component{
             <div className = {classes.backdrop}>
                 {hospitalDetails}
                 <hr/>
+                <p className="btn btn-primary" style = {{color: 'white', fontWeight: 'normal'}} onClick = {this.addDoctor}>+ Add Doctor</p>
                 {hospitalDoctors}
             </div>
         );
     }
 }
 
-export default HospitalDetails;
+export default withRouter(HospitalProfile);

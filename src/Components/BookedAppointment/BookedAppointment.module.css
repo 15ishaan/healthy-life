@@ -1,0 +1,21 @@
+/* background: -webkit-linear-gradient(left, #3931af, #00c6ff); */
+.container {
+    position: relative;
+    margin: 5% auto;
+    width: 800px;
+    height: 400px;
+    background: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+
+.content h3{
+    font-weight: 500;
+    text-align: center;
+    padding-top: 15%;
+}
+
+.button {
+    padding-left: 40%;
+}

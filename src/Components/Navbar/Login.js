@@ -18,17 +18,32 @@ class Login extends Component {
                 .then(response => {
                     if(response.status === 200){
                         //console.log(response);
-                        localStorage.setItem("token", response.data.token)
+
+                        //check if user is hospital
+                        let token = response.data.token;
+                        const identifier = token.substring(0, 4);
+                        token = token.split("|").pop();
+
+                        localStorage.setItem("token", token);
                         localStorage.setItem("username",this.state.user.username);
+
                         axios.get('/quickstart/profile_user/' + this.state.user.username + '/')
                             .then(res => {
-                                //console.log(res);
+                                console.log(res);
+                                localStorage.setItem("id", res.data.id);
                                 this.props.setUser(res.data);
                             })
                             .catch(error => {
                                 console.log(error);
                             })
-                        this.props.history.push("/hospitals");
+                        if(identifier === "None") {
+                            localStorage.setItem("role", "user");
+                            this.props.history.push("/hospitals");
+                        }
+                        else{
+                            localStorage.setItem("role", "hospital");
+                            this.props.history.push("/hospitalProfile");
+                        } 
                     }
                 })
                 .catch(error => console.error());

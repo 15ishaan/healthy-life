@@ -32,15 +32,13 @@ class Home extends Component {
             //     <HospitalCard key = "1" hospitalData = {{hospital_name: "xyz", street_name: "xyz", id:  "1", username: "xyz", rating: "4"}} />
             // </div>
         );
-        if(this.props.user){
-            if(this.state.hospitals){
-                hospitals = ( 
-                <div className = {classes.container}>
-                    {this.state.hospitals.map((hospital) => (
-                    <HospitalCard key = {hospital.id} hospitalData = {hospital}/> ))};
-                </div>
-            )}
-        }
+        if(this.state.hospitals){
+            hospitals = ( 
+            <div className = {classes.container}>
+                {this.state.hospitals.map((hospital) => (
+                <HospitalCard key = {hospital.id} hospitalData = {hospital}/> ))};
+            </div>
+        )}
         return (
             <div>{hospitals}</div>
         );

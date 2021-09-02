@@ -54,7 +54,7 @@ class HospitalDetails extends Component{
         if(this.state.hospitalDetails) {
             hospitalDetails = (
                 <div className = {classes.content}>
-                <img className = {classes.image} src = {"http://a8a6-112-196-163-58.ngrok.io" + this.state.hospitalDetails.image} alt = "xyz"></img>
+                <img className = {classes.image} src = {"http://de70-103-61-113-219.ngrok.io" + this.state.hospitalDetails.image} alt = "xyz"></img>
                 <br/><br/>
                 <h1><strong>{this.state.hospitalDetails.hospital_name}</strong></h1>
                 <h5>Address: {this.state.hospitalDetails.street_name}</h5>

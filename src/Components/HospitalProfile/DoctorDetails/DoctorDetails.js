@@ -2,6 +2,7 @@ import React from 'react'
 import { Component } from 'react';
 import axios from "../../../Axios-url"
 import classes from './DoctorDetails.module.css'
+import Appointment from './Appointment'
 import { withRouter } from 'react-router';
 
 class DoctorDetails extends Component {
@@ -24,11 +25,29 @@ class DoctorDetails extends Component {
             .catch(error => {
                 console.log(error);
             })
+
+        axios.get("/quickstart/appointment/" + doctorId + "/")
+        .then(response => {
+            console.log(response);
+            if(response.status === 200) {
+                console.log(response)
+                this.setAppointments(response.data);
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        })
     }
 
     setDoctorDetails  = (data) => {
         this.setState({
             doctorDetails: data
+        })
+    }
+
+    setAppointments  = (data) => {
+        this.setState({
+            appointments: data
         })
     }
 
@@ -40,9 +59,28 @@ class DoctorDetails extends Component {
     }
 
     render () {
-        if(!this.state.doctorDetails) 
-        {
-            return(<div></div>);
+        if(!this.state.doctorDetails) return(<div></div>);
+        let appointments = null;
+        if(this.state.appointments) {
+            // let appointments = this.state.appointments.filter(appointments => appointments.display)
+            let length = this.state.appointments.length;
+            if(length) {
+                appointments = (
+                    <div>
+                        {this.state.appointments.map((appointment, index) => (
+                            <Appointment key = {index} data = {appointment} />))}
+                    </div>
+
+                );
+            }
+            else {
+                appointments = (
+                    <div>
+                        <strong>No available appointments !!</strong>
+                    </div>
+
+                );
+            }
         }
         return(
             <div>
@@ -51,7 +89,7 @@ class DoctorDetails extends Component {
                         <div className ="row">
                             <div className ="col-md-4">
                                 <div className = {classes.profile_img}>
-                                    <img src= {"http://4219-112-196-163-58.ngrok.io" + this.state.doctorDetails.image} alt="Doctor-image"/>
+                                    <img src= {"http://de70-103-61-113-219.ngrok.io" + this.state.doctorDetails.image} alt="Doctor-image"/>
                                 </div>
                             </div>
                             <div className ="col-md-6">
@@ -64,10 +102,10 @@ class DoctorDetails extends Component {
                                     </h6>
                                     <ul className ="nav nav-tabs" id="myTab" role="tablist">
                                         <li className ="nav-item">
-                                            <a className ="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                            <a className ="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Appointments</a>
                                         </li>
                                         <li className ="nav-item">
-                                            <a className ="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Appointments</a>
+                                            <a className ="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">About</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -85,15 +123,19 @@ class DoctorDetails extends Component {
                                 </div>
                             </div> 
                             <div className ="col-md-8">
-                                <div className ={["tab-content", classes.profile_tab].join(' ')}id="myTabContent">
+                                <div className ={["tab-content", classes.profile_tab].join(' ')} id="myTabContent">
                                     <div className ="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                        <div className ="row">
-                                            <div className ="col-md-6">
-                                                <label>Name</label>
-                                            </div>
-                                            <div className ="col-md-6">
-                                                <p>{this.state.doctorDetails.first_name} {this.state.doctorDetails.last_name}</p>
-                                            </div>
+                                        <br/>
+                                        {appointments}
+                                    </div>
+                                    <div className ="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                    <div className ="row">
+                                        <div className ="col-md-6">
+                                            <label>Name</label>
+                                        </div>
+                                        <div className ="col-md-6">
+                                            <p>{this.state.doctorDetails.first_name} {this.state.doctorDetails.last_name}</p>
+                                        </div>
                                         </div>
                                         <div className ="row">
                                             <div className ="col-md-6">
@@ -136,40 +178,6 @@ class DoctorDetails extends Component {
                                             </div>
                                         </div>
                                         <p className="btn btn-primary" style = {{color: 'white', fontWeight: 'normal'}} onClick = {this.editDetailsHandler}>Edit Details</p>
-                                    </div>
-                                    <div className ="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                        <div className ="row">
-                                            <div className ="col-md-6">
-                                                <label>Experience</label>
-                                            </div>
-                                            <div className ="col-md-6">
-                                                <p>{this.state.doctorDetails.Years_of_Experience}</p>
-                                            </div>
-                                        </div>
-                                        <div className ="row">
-                                            <div className ="col-md-6">
-                                                <label>Hourly Rate</label>
-                                            </div>
-                                            <div className ="col-md-6">
-                                                <p>10$/hr</p>
-                                            </div>
-                                        </div>
-                                        <div className ="row">
-                                            <div className ="col-md-6">
-                                                <label>Degree</label>
-                                            </div>
-                                            <div className ="col-md-6">
-                                                <p>{this.state.doctorDetails.Qualification}</p>
-                                            </div>
-                                        </div>
-                                        <div className ="row">
-                                            <div className ="col-md-6">
-                                                <label>Availability</label>
-                                            </div>
-                                            <div className ="col-md-6">
-                                                <p>6 months</p>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

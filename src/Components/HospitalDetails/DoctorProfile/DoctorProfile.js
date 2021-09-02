@@ -3,6 +3,7 @@ import classes from './DoctorProfile.module.css'
 // import Backdrop from '../../../Assets/images/backdrop.jpg'
 import { withRouter } from 'react-router';
 import axios from '../../../Axios-url'
+import { Dropdown } from 'bootstrap';
 
 class DoctorProfile extends Component {
     state = {};
@@ -39,14 +40,15 @@ class DoctorProfile extends Component {
             this.props.history.push("/login")
         }
         else {
-            const data = {username: username};
-            
+    
             let curUrl = window.location.href;
             curUrl = curUrl.split("/").pop();
             curUrl = curUrl.split("/").pop();
             const doctorId = curUrl.split("/").pop();
 
-            axios.post("/quickstart/make_appointment/" + doctorId + "/", data)
+            const data = {username: username, status: "null"};
+
+            axios.post("/quickstart/make_appointment/", data)
                 .then(response => {
                     if(response.status === 201) {
                         this.props.history.push("/bookedAppointment");
@@ -71,7 +73,7 @@ class DoctorProfile extends Component {
                         <div className ="row">
                             <div className ="col-md-4">
                                 <div className = {classes.profile_img}>
-                                    <img src= {"http://aff6-112-196-163-64.ngrok.io" + this.state.doctorDetails.image} alt="Doctor-image"/>
+                                    <img src= {"http://de70-103-61-113-219.ngrok.io" + this.state.doctorDetails.image} alt="Doctor-image"/>
                                 </div>
                             </div>
                             <div className ="col-md-6">

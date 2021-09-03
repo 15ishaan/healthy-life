@@ -13,7 +13,7 @@ class AddDoctor extends Component{
             first_name:"", 
             last_name:"", 
             Qualification:"",
-            Specialization:"", 
+            Specialization:"Neurologist", 
             Contact:"", 
             image: null, 
             Years_of_Experience: "",
@@ -23,7 +23,7 @@ class AddDoctor extends Component{
 
     handleInputs = (event) => {
         let name = event.target.name;
-        let value = event.target.value;
+        let value = event.target.value; 
         const doctor = this.state.doctor;
         doctor[name] = value;
         this.setState({doctor});
@@ -126,24 +126,19 @@ class AddDoctor extends Component{
                                     <div className = "col-lg-8">
                                         <input className = "form-control" type="text" value="janesemail@gmail.com"/>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className = "form-group">
-                                    <label className = "col-lg-3 control-label">Time Zone:</label>
+                                    <label className = "col-lg-3 control-label">Specialization:</label>
                                     <div className = "col-lg-8">
                                         <div className = "ui-select">
-                                            <select id="user_time_zone" className = "form-control">
-                                                <option value="Hawaii">(GMT-10:00) Hawaii</option>
-                                                <option value="Alaska">(GMT-09:00) Alaska</option>
-                                                <option value="Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time (US &amp; Canada)</option>
-                                                <option value="Arizona">(GMT-07:00) Arizona</option>
-                                                <option value="Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain Time (US &amp; Canada)</option>
-                                                <option value="Central Time (US &amp; Canada)" selected="selected">(GMT-06:00) Central Time (US &amp; Canada)</option>
-                                                <option value="Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time (US &amp; Canada)</option>
-                                                <option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>
+                                            <select id="user_time_zone" className = "form-control" style = {{width: "225px"}} name = "Specialization" value = {this.state.doctor.Specialization} onChange = {this.handleInputs}>
+                                                <option value="Neurologist">Neurologist</option>
+                                                <option value="Ortho">Ortho</option>
                                             </select>
                                         </div>
                                     </div>
-                                </div> */}
+                                </div>
+                                <br/>
                                 {/* <div className = "form-group">
                                     <label className = "col-md-3 control-label">Username:</label>
                                     <div className = "col-md-8">
@@ -156,18 +151,19 @@ class AddDoctor extends Component{
                                         <input className = "form-control" type="text" name = "Qualification" placeholder="Qualification" value = {this.state.doctor.Qualification} onChange = {this.handleInputs}/>
                                     </div>
                                 </div>
-                                <div className = "form-group">
+                                {/* <div className = "form-group">
                                     <label className = "col-md-3 control-label">Specialization:</label>
                                     <div className = "col-md-8">
                                         <input className = "form-control" type="text" name = "Specialization" placeholder="Specialization" value = {this.state.doctor.Specialization} onChange = {this.handleInputs}/>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className = "form-group">
                                     <label className = "col-md-3 control-label">Years of Experience:</label>
                                     <div className = "col-md-8">
                                         <input className = "form-control" style = {{width: "225px"}} type="number" name = "Years_of_Experience" placeholder="Years" value= {this.state.doctor.Years_of_Experience} onChange = {this.handleInputs}/>
                                     </div>
                                 </div>
+                                <br/>
                                 <div className = "form-group">
                                     <label className = "col-md-3 control-label">Contact:</label>
                                     <div className = "col-md-8">

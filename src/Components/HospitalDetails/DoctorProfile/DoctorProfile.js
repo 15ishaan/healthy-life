@@ -73,7 +73,7 @@ class DoctorProfile extends Component {
                         <div className ="row">
                             <div className ="col-md-4">
                                 <div className = {classes.profile_img}>
-                                    <img src= {"http://de70-103-61-113-219.ngrok.io" + this.state.doctorDetails.image} alt="Doctor-image"/>
+                                    <img src= {"http://f0a2-112-196-163-70.ngrok.io" + this.state.doctorDetails.image} alt="Doctor-image"/>
                                 </div>
                             </div>
                             <div className ="col-md-6">
@@ -84,6 +84,7 @@ class DoctorProfile extends Component {
                                     <h6>
                                         {this.state.doctorDetails.Specialization}
                                     </h6>
+                                    <p className="proile-rating">RANKINGS : <span>8/10</span></p>
                                     <ul className ="nav nav-tabs" id="myTab" role="tablist">
                                         <li className ="nav-item">
                                             <a className ="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
@@ -93,6 +94,9 @@ class DoctorProfile extends Component {
                                         </li>
                                     </ul>
                                 </div>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="submit" className="profile-edit-btn" name="btnAddMore" value="Chat With Me"/>
                             </div>
                         </div>
                         <div className ="row">

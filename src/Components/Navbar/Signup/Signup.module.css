@@ -161,7 +161,7 @@ button.socialSigninGoogle {
   background: #DD4B39;
 }
 
-/* .select_arrow {
+.select_arrow {
   position: absolute;
   top: calc(50% - 4px);
   right: 15px;
@@ -171,11 +171,11 @@ button.socialSigninGoogle {
   border-width: 8px 5px 0 5px;
   border-style: solid;
   border-color: #7b7b7b transparent transparent transparent;
-} */
+}
 
-/* .select_option select {
+.select_option select {
   border-top-color: black;
-} */
+}
 
 .input_field {
   /* position: relative; */
@@ -199,4 +199,12 @@ button.socialSigninGoogle {
 .upload_image{
   position: absolute;
   top: 63%;
+}
+
+.invalid {
+  border:1px solid blue !important;
+ }
+ input, textarea {
+  outline: none !important;
+  box-shadow: none !important; 
 }

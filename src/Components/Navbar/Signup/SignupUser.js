@@ -1,76 +1,140 @@
-import React, {Component} from 'react';
-// import SignupPic from '../../Assets/images/Signup-pic.png'
-import {withRouter} from 'react-router-dom';
-import classes from './Signup.module.css'
+import React, {Component, useState, useRef} from 'react';
+// import SignupPic from '../../Assets/images/Signup-pic.png;
+import {useHistory} from 'react-router-dom';
+import { useForm } from "react-hook-form";
 import axios from '../../../Axios-url';
 
-class SignupUser extends Component{
+const SignupUser = () => {
 
-    state = {
-        first_name:"", last_name:"", username:"", password:"", confirm_password:""
-    }
+    const{register, handleSubmit, formState:{errors}, reset, trigger, watch} = useForm();
+    
+    const password = useRef({});
+    password.current = watch("password", "");
+    const history = useHistory();
 
-    handleFirstName = (event) => {
-        this.setState({first_name: event.target.value});
-    }
-    handleLastName = (event) => {
-        this.setState({last_name: event.target.value});
-    }
-    handleUsername = (event) => {
-        this.setState({username: event.target.value});
-    }
-    handlePassword = (event) => {
-        this.setState({password: event.target.value});
-    }
-    handleConfirmPassword = (event) => {
-        this.setState({confirm_password: event.target.value});
-    }
+    const onSubmit = (data) => {
+    axios.post('/quickstart/signup_as_user/', data)
+            .then(response => {
+                console.log(response)
+                if(response.status === 200){
+                    const userId = response.data.user_id;
+                    history.push("/signup/otp/" + userId);
+                }
+            })
+            .catch(error => console.error());
+        reset();
+    };
 
-    submitData = () => {
-        if(this.state.first_name === "" || this.state.last_name === "" || 
-          this.state.username === "" || this.state.password === "" || this.state.confirm_password === "") window.alert("Enter Your Credentials!");
-        else if(this.state.password !== this.state.confirm_password) window.alert("Passwords must match");
-        else{
-            axios.post('/quickstart/signup_as_user/', this.state)
-                .then(response => {
-                    console.log(response)
-                    if(response.status === 200){
-                        const userId = response.data.user_id;
-                        this.props.history.push("/signup/otp/" + userId);
-                    }
-                })
-                .catch(error => console.error());
-        }
-    }
-
-    render () {
-        return(
-            <div className = {classes.loginBox}>
-                <div className={classes.left}>
-                    <h1>Sign up</h1>
-                    <br/><br/>
-                    <input type="text" name="first_name" placeholder="Your First Name" value = {this.state.first_name} onChange = {this.handleFirstName}/>
-                    <input type="text" name="last_name" placeholder="Your Last Name" value = {this.state.last_name} onChange = {this.handleLastName}/>
-                    <input type="text" name="username" placeholder="Your E-mail" value = {this.state.username} onChange = {this.handleUsername}/>
-                    <input type="password" name="password" placeholder="Your Password" value = {this.state.password} onChange = {this.handlePassword}/>
-                    <input type="password" name="confirm_password" placeholder="Confirm Your Password" value = {this.state.confirm_password} onChange = {this.handleConfirmPassword}/>
-                    <input type="submit" name="signup_submit" value="Sign me up" onClick = {this.submitData} />
-                    <p>Already Registered? <a href = "/login">Sign-in</a></p>
+    return(
+        <div className="container pt-5">
+            <div className="row justify-content-sm-center pt-5">
+                <div className="col-sm-6 shadow round pb-3" style = {{backgroundColor: "white"}}>
+                <h1 className="text-center pt-3 text-secondary">Register!</h1>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="form-group">
+                    <label className="col-form-label">First Name:</label>
+                    <input type="text"
+                        className={`form-control ${errors.name && "invalid"}`}
+                        {...register("first_name", { required: "First name is Required" })}
+                        onKeyUp={() => {
+                        trigger("first_name");
+                        }}
+                        // name = "first_name"
+                        // value = {user.first_name}
+                        // onChange = {handleInputs}
+                    />
+                    {errors.first_name && (
+                        <small className="text-danger">{errors.first_name.message}</small>
+                    )}
+                    </div>
+                    <div className="form-group">
+                    <label className="col-form-label">Last Name:</label>
+                    <input type="text"
+                        className={`form-control ${errors.name && "invalid"}`}
+                        {...register("last_name", { required: "Last name is Required" })}
+                        onKeyUp={() => {
+                        trigger("last_name");
+                        }}
+                        // name = "last_name"
+                        // value = {user.last_name}
+                        // onChange = {handleInputs}
+                    />
+                    {errors.last_name && (
+                        <small className="text-danger">{errors.last_name.message}</small>
+                    )}
+                    </div>
+                    <div className="form-group">
+                    <label className="col-form-label">Email:</label>
+                    <input type="text"
+                        className={`form-control ${errors.email && "invalid"}`}
+                        {...register("email", { required: "Email is Required" ,
+                        pattern: {
+                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                        message: "Invalid email address",
+                        }})}
+                        onKeyUp={() => {
+                        trigger("email");
+                        }}
+                        // name = "username"
+                        // value = {user.username}
+                        // onChange = {handleInputs}
+                    />
+                    {errors.email && (
+                        <small className="text-danger">{errors.email.message}</small>
+                    )}
+                    </div>
+                    <div className="form-group">
+                    <label className="col-form-label">Password:</label>
+                    <input type="password"
+                        autoComplete = "off"
+                        className={`form-control ${errors.name && "invalid"}`}
+                        {...register("password", { 
+                            required: "Password is Required",
+                            minLength: {
+                                value: 6,
+                                message: "Minimum Required length is 6",
+                            },
+                            maxLength: {
+                                value: 10,
+                                message: "Maximum allowed length is 10",
+                            }
+                        })}
+                        onKeyUp={() => {
+                        trigger("password");
+                        }}
+                        // name = "password"
+                        // value = {user.password}
+                        // onChange = {handleInputs}
+                    />
+                    {errors.password && (
+                        <small className="text-danger">{errors.password.message}</small>
+                    )}
+                    </div>
+                    <div className="form-group">
+                    <label className="col-form-label">Confirm Password:</label>
+                    <input type="password" 
+                        className={`form-control ${errors.name && "invalid"}`}
+                        {...register("confirm_password", { 
+                            validate: value =>
+                            value === password.current || "The passwords do not match"
+                        })}
+                        onKeyUp={() => {
+                        trigger("confirm_password");
+                        }}
+                        // name = "confirm_password"
+                        // value = {user.confirm_password}
+                        // onChange = {handleInputs} 
+                    />
+                    {errors.confirm_password && (
+                        <small className="text-danger">{errors.confirm_password.message}</small>
+                    )}
+                    </div>
+                    <input type="submit" className="btn btn-primary my-3" value="Sign Up"/>
+                </form>
                 </div>
-        
-                <div className={classes.right}>
-                    <span className={classes.loginwith}>Sign in with<br />social network</span>
-                    <button className={[classes.socialSigninFacebook, classes.socialSignin].join(' ')}>Log in with facebook</button>
-                    <button className={[classes.socialSigninTwitter, classes.socialSignin].join(' ')}>Log in with Twitter</button>
-                    <button className={[classes.socialSigninGoogle, classes.socialSignin].join(' ')}>Log in with Google+</button>
-                </div>
-                <div className={classes.or}>OR</div>
-                {/* <Route path = "/signup/otp/">
-                    <Otp user_id = {this.state.user_id} />
-                </Route> */}
             </div>
-        );
-    }
+        </div>
+    );
 }
 
-export default withRouter(SignupUser);
+export default SignupUser;

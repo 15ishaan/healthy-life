@@ -24,28 +24,28 @@ class App extends Component{
   state = {};
 
   componentDidMount = () => {
-    const username = localStorage.getItem("username");
-    const role = localStorage.getItem("role");
-    if(role === "user"){
-      axios.get('/quickstart/profile_user/' + username + '/')
-        .then(response => {
-            console.log(response);
-            this.setUser(response.data);
-        })
-        .catch(error => {
-            console.log(error);
-        })
-    }
-    else{
-      axios.get('/quickstart/profile_hospital/' + username + '/')
-        .then(response => {
-            console.log(response);
-            this.setUser(response.data);
-        })
-        .catch(error => {
-            console.log(error);
-        })
-    }
+    // const username = localStorage.getItem("username");
+    // const role = localStorage.getItem("role");
+    // if(role === "user"){
+    //   axios.get('/quickstart/profile_user/' + username + '/')
+    //     .then(response => {
+    //         console.log(response);
+    //         this.setUser(response.data);
+    //     })
+    //     .catch(error => {
+    //         console.log(error);
+    //     })
+    // }
+    // else{
+    //   axios.get('/quickstart/profile_hospital/' + username + '/')
+    //     .then(response => {
+    //         console.log(response);
+    //         this.setUser(response.data);
+    //     })
+    //     .catch(error => {
+    //         console.log(error);
+    //     })
+    // }
 }
 
   setUser = (user) => {
